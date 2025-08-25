@@ -9,8 +9,8 @@ spec:
   project: default
   source:
     repoURL: https://github.com/Future-Jim/thrive-take-home.git
-    path: namespaces/
     targetRevision: main
+    path: apps/namespaces/
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
