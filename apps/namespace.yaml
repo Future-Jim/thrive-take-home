@@ -9,7 +9,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/Future-Jim/thrive-take-home.git
-    path: namespaces/monitoring   # a folder with namespace.yaml
+    path: apps/namespaces/   # a folder with namespace.yaml
     targetRevision: main
   destination:
     server: https://kubernetes.default.svc
