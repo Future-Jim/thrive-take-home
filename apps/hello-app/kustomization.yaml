@@ -7,4 +7,4 @@ kind: Kustomization
 images:
 - name: /
   newName: /
-  newTag: 6f84c77bad4afe32aa3a722037fab56645334ac9
+  newTag: 71517a7088d1c47d833dbd5d1b4959fe7958e690
