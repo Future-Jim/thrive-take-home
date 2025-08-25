@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://github.com/prometheus-operator/prometheus-operator.git
     path: example/prometheus-operator-crd
-    targetRevision: v0.77.0
+    targetRevision: v0.85.0
     directory:
       recurse: true
   destination:
