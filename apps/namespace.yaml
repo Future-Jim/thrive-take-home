@@ -9,7 +9,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/your-org/your-repo.git
-    path: namespaces/monitoring
+    path: namespaces/
     targetRevision: main
   destination:
     server: https://kubernetes.default.svc
