@@ -28,7 +28,6 @@ module "eks" {
   # EKS Managed Node Group(s)
   eks_managed_node_groups = {
     example = {
-      # Starting on 1.30, AL2023 is the default AMI type for EKS managed node groups
       ami_type       = "AL2023_x86_64_STANDARD"
       instance_types = ["t3.medium"]
 
@@ -45,13 +44,8 @@ module "eks" {
 
 }
 
-# resource "aws_eks_access_entry" "gha" {
-#   cluster_name  = module.eks.cluster_name
-#   principal_arn = "arn:aws:iam::${var.aws_account_id}:role/GitHubActionsTofuRole"
-#   type          = "STANDARD"
-# }
 
-# Bind the role to EKS ClusterAdmin (full cluster access)
+# Role is hardcoded to match what is in bootstrap step. Be careful :)
 resource "aws_eks_access_policy_association" "gha_admin" {
   cluster_name  = module.eks.cluster_name
   principal_arn = "arn:aws:iam::${var.aws_account_id}:role/GitHubActionsTofuRole"
