@@ -1,21 +1,30 @@
 # thrive-take-home
 
-## 1. Run bootstrap scripts against your AWS account via CLI
-### 1.1 Update <ACCOUNT_NUMBER> on line 7 of trust-policy.json
-#### Update <ACCOUNT_NUMBER> in config/dev.tfvars
-### 1.2 Run create-oidc-role.sh. 
-### 1.3 Run enable-oidc.sh
-### 1.4 Run create-s3-backend.sh and take note of the s3 bucket and key in the output
-### 1.5 Update infra/tofu/config/dev.tfvars variables as follows
-#### s3_bucket and s3_key from step 1.4
-### 1.6 Update the provider config for the terraform backend with the S3 bucket name and S3 key name 
-### 1.7 In the GitHub repo, update the environment variable AWS_ACCOUNT_ID to your AWS account. This is necessary for OICD
-### Should be good to push code to github now and run ci/cd jobs
+## Run bootstrap scripts
+1. Authenticate to AWS Account via CLI
+2. Update <ACCOUNT_NUMBER> on line 7 of trust-policy.json
+3. Run create-oidc-role.sh. 
+4. Run enable-oidc.sh
+5. Run create-s3-backend.sh and take note of the s3 bucket and key in the output
+6. Update infra/tofu/config/dev.tfvars variables as follows
+   1. s3_bucket and s3_key from step 1.4
+   2. Update the provider config for the terraform backend with the S3 bucket name and S3 key name 
+   3. Update account number in bootstrap-stuff/trust-policy.json
+   4. Update account number in apps/hello-app/values.yaml
+7. In the GitHub repo, update the environment variable AWS_ACCOUNT_ID to your AWS account. 
+
+8.  Should be good to push code to github now and run ci/cd jobs
 
 
-TODO
-1. remove hardcoded vpc in add-on eks load balancer
-2. fix pipelines -> they should have a separate plan section
+Notes:
+- Deploy job needs to be run twice (need to fix this somehow)
 
+##### To access ArgoCD UI
+1. Obtain default admin password 
+2. kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+3. Port forward argocd service
+4. kubectl port-forward service/argocd-server -n argocd 8080:443 
+5. Visit localhost:8080.
 
-deploy job needs to be run twice (need to fix this somehow)
+##### TODO
+1. fix pipelines -> they should have a separate plan section. Currently a push is meaningless and only manually triggered jobs do anything useful for the deploy-infra job.
