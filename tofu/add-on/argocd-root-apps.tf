@@ -1,0 +1,29 @@
+resource "kubernetes_manifest" "root_app" {
+  
+  manifest = {
+    "apiVersion" = "argoproj.io/v1alpha1"
+    "kind"       = "Application"
+    "metadata" = {
+      "name"      = "root-apps"
+      "namespace" = "argocd"
+    }
+    "spec" = {
+      "project" = "default"
+      "source" = {
+        "repoURL"        = "https://github.com/Future-Jim/thrive-take-home.git"
+        "targetRevision" = "HEAD"
+        "path"           = "apps"
+      }
+      "destination" = {
+        "server"    = "https://kubernetes.default.svc"
+        "namespace" = "argocd"
+      }
+      "syncPolicy" = {
+        "automated" = {
+          "prune"    = true
+          "selfHeal" = true
+        }
+      }
+    }
+  }
+}

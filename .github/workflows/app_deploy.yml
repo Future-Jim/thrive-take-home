@@ -1,0 +1,52 @@
+name: Build/Deploy src_app
+
+on:
+  push:
+    branches: [ "main" ]
+    paths:
+      - 'src_apps/**'
+      - '.github/workflows/app_deploy.yml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write   
+      contents: write   
+    steps:
+      - name: Checkout app repo
+        uses: actions/checkout@v3
+
+      - name: Configure AWS credentials from OIDC
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: us-east-1
+          role-to-assume: arn:aws:iam::${{ vars.AWS_ACCOUNT_ID }}:role/GitHubActionsTofuRole
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build, tag, and push image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: app
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:latest ./src_apps
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
+
+
+      - name: Update image in kustomization.yaml
+        run: |
+            cd apps/hello-app
+            kustomize edit set image $ECR_REGISTRY/$ECR_REPOSITORY=$ECR_REGISTRY/$ECR_REPOSITORY:${{ github.sha }}
+
+      - name: Commit and push manifest update
+        run: |
+            git config user.name github-actions
+            git config user.email github-actions@github.com
+            git add apps/hello-app/kustomization.yaml
+            git commit -m "Update hello-app image to ${{ github.sha }}" || echo "No changes to commit"
+            git pull --rebase origin main   
+            git push origin main

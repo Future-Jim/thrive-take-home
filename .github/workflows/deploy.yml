@@ -1,0 +1,113 @@
+name: Deploy
+
+on:
+  push:
+    #branches: ["main"]
+    paths: ["tofu/infra/**"]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Which environment to deploy?"
+        required: true
+        default: "dev"
+        type: choice
+        options:
+          - dev
+          - staging
+          - prod
+
+
+jobs:
+  infra:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write   # allow OIDC
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure AWS creds
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::${{ vars.AWS_ACCOUNT_ID }}:role/GitHubActionsTofuRole
+          aws-region: us-east-1
+
+      - name: Setup OpenTofu
+        uses: opentofu/setup-opentofu@v1
+        with:
+          tofu_version: latest
+
+      - name: Init
+        working-directory: tofu/infra
+        run: tofu init -input=false
+
+      - name: Apply Infra
+        env:
+          TF_INPUT: false
+          TF_IN_AUTOMATION: true
+          TF_LOG_PATH: tofu.log        # write to a log file
+        if: github.event_name == 'workflow_dispatch'
+        working-directory: tofu/infra
+        run: |
+          ENVIRONMENT=${{ github.event.inputs.environment || 'dev' }}
+          tofu apply -var-file="configs/${ENVIRONMENT}.tfvars" -auto-approve
+
+      - name: Export outputs
+        working-directory: tofu/infra
+        run: tofu output -json > ../../cluster-outputs.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cluster-outputs
+          path: cluster-outputs.json
+
+  addons:
+    runs-on: ubuntu-latest
+    needs: infra
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure AWS creds
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::${{ vars.AWS_ACCOUNT_ID }}:role/GitHubActionsTofuRole
+          aws-region: us-east-1
+
+      - uses: opentofu/setup-opentofu@v1
+        with:
+          tofu_version: latest
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: cluster-outputs
+          path: tofu/add-on
+
+      - name: Init & Apply Addons
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          TF_INPUT: false
+          TF_IN_AUTOMATION: true
+          TF_LOG_PATH: tofu.log        # write to a log file
+        working-directory: tofu/add-on
+        run: |
+          CLUSTER_NAME=$(jq -r .cluster_name.value ./cluster-outputs.json)
+          CLUSTER_ENDPOINT=$(jq -r .cluster_endpoint.value ./cluster-outputs.json)
+          CLUSTER_CA=$(jq -r .cluster_ca.value ./cluster-outputs.json)
+          CLUSTER_VERSION=$(jq -r .cluster_version.value ./cluster-outputs.json)
+          OIDC=$(jq -r .oidc_provider_arn.value ./cluster-outputs.json)
+          VPC_ID=$(jq -r .vpc_id.value ./cluster-outputs.json)
+
+          
+
+          tofu init -input=false -reconfigure
+          tofu apply \
+            -var "cluster_name=$CLUSTER_NAME" \
+            -var "cluster_endpoint=$CLUSTER_ENDPOINT" \
+            -var "cluster_ca=$CLUSTER_CA" \
+            -var "cluster_version=$CLUSTER_VERSION" \
+            -var "oidc_provider_arn=$OIDC" \
+            -var "vpc_id=$VPC_ID" \
+            -var-file="configs/${{ github.event.inputs.environment || 'dev' }}.tfvars" \
+            -auto-approve

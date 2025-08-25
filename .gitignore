@@ -1,0 +1,28 @@
+# Local .terraform directories
+**/.terraform/*
+**/.terraform/*/*
+
+# Terraform state files
+*.tfstate
+*.tfstate.*
+*.tfstate.backup
+
+# Crash logs
+crash.log
+crash.*.log
+
+# OpenTofu lock & plan files
+.terraform.lock.hcl
+*.plan
+
+# Override files (for local testing)
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Provider-specific credentials or CLI outputs
+.terraformrc
+terraform.rc
+tofu.rc
+.opentofu.rc

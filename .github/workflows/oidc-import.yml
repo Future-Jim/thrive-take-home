@@ -1,0 +1,33 @@
+name: OIDC Import
+
+on: workflow_dispatch
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure AWS creds via OIDC
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::${{ vars.AWS_ACCOUNT_ID }}:role/GitHubActionsTofuRole
+          aws-region: us-east-1
+
+      - name: Setup OpenTofu
+        uses: opentofu/setup-opentofu@v1
+        with:
+          tofu_version: latest
+
+      - name: Init
+        working-directory: infra/tofu
+        run: tofu init -input=false
+
+      - name: Import GitHub OIDC provider
+        working-directory: infra/tofu
+        run: |
+          tofu import aws_iam_openid_connect_provider.github \
+            arn:aws:iam::${{ vars.AWS_ACCOUNT_ID }}:oidc-provider/token.actions.githubusercontent.com
