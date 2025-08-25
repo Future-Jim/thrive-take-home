@@ -8,9 +8,9 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/prometheus-operator/prometheus-operator.git
-    path: example/prometheus-operator-crd
-    targetRevision: v0.85.0
+    repoURL: https://github.com/Future-Jim/thrive-take-home.git
+    path: monitoring-crds
+    targetRevision: main
     directory:
       recurse: true
   destination:
