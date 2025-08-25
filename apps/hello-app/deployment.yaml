@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: hello-app
-        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        image: "767398143316.dkr.ecr.us-east-1.amazonaws.com/app:latest" 
         ports:
         - containerPort: 8080
