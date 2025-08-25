@@ -8,7 +8,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/your-org/your-repo.git
+    repoURL: https://github.com/Future-Jim/thrive-take-home.git
     path: namespaces/monitoring   # a folder with namespace.yaml
     targetRevision: main
   destination:
