@@ -3,6 +3,8 @@ kind: Application
 metadata:
   name: kube-prometheus-stack
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
 spec:
   project: default
   source:
@@ -12,6 +14,8 @@ spec:
     helm:
       releaseName: kube-prometheus-stack
       values: |
+        crds:
+          enabled: false   # CRDs managed separately
         grafana:
           adminPassword: admin
           service:
@@ -29,5 +33,3 @@ spec:
     automated:
       prune: true
       selfHeal: true
-  syncOptions:
-    - CreateNamespace=true
