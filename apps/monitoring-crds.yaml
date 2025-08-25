@@ -9,10 +9,8 @@ spec:
   project: default
   source:
     repoURL: https://github.com/Future-Jim/thrive-take-home.git
-    path: apps/monitoring-crds/
     targetRevision: main
-    directory:
-      recurse: true
+    path: apps/monitoring-crds/
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd
