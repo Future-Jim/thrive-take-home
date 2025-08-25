@@ -1,0 +1,4 @@
+image:
+  repository: 767398143316.dkr.ecr.us-east-1.amazonaws.com/app
+  tag: latest
+  pullPolicy: IfNotPresent

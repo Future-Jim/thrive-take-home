@@ -5,7 +5,7 @@ metadata:
   labels:
     app: hello-app
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: hello-app
@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: hello-app
-        image: 767398143316.dkr.ecr.us-east-1.amazonaws.com/app:latest
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         ports:
         - containerPort: 8080
