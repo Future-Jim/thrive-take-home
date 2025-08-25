@@ -10,7 +10,7 @@
    1. s3_bucket and s3_key from step 1.4
    2. Update the provider config for the terraform backend with the S3 bucket name and S3 key name 
    3. Update account number in bootstrap-stuff/trust-policy.json
-   4. Update account number in apps/hello-app/values.yaml
+   4. Update account number in apps/hello-app/kustomization.yaml
 7. In the GitHub repo, update the environment variable AWS_ACCOUNT_ID to your AWS account. 
 
 8.  Should be good to push code to github now and run ci/cd jobs
