@@ -1,4 +1,4 @@
-name: Plan/Deploy Infra and Add-Ons
+name: Deploy Infra and Add-Ons
 
 on:
   push:
