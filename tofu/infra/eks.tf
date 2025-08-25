@@ -44,7 +44,6 @@ module "eks" {
 
 }
 
-
 # Role is hardcoded to match what is in bootstrap step. Be careful :)
 resource "aws_eks_access_policy_association" "gha_admin" {
   cluster_name  = module.eks.cluster_name
