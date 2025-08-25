@@ -16,9 +16,7 @@ terraform {
   }
 }
 
-
 provider "aws" { region = var.region }
-
 
 # ------------------------
 # Data source for cluster auth
