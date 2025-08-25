@@ -16,3 +16,6 @@
 TODO
 1. remove hardcoded vpc in add-on eks load balancer
 2. fix pipelines -> they should have a separate plan section
+
+
+deploy job needs to be run twice (need to fix this somehow)
