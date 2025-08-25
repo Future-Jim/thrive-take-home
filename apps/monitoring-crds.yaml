@@ -9,7 +9,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/Future-Jim/thrive-take-home.git
-    path: apps/monitoring-crds
+    path: apps/monitoring-crds/
     targetRevision: main
     directory:
       recurse: true
