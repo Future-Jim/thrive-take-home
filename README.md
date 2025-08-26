@@ -40,7 +40,7 @@
 8. Update the provider config in /tofu/add-on/providers.tf for the terraform backend with the S3 bucket name (key is harcoded)
 9. Update AWS Account ID tofu/infra/config/dev.tfvars variables
 10. Update AWS Account ID tofu/add-on/config/dev.tfvars variables
-11. Update account number in apps/hello-app/kustomization.yaml and in /apps/hello-app/deployment
+11. Update account number in apps/hello-app/kustomization.yaml and in /apps/hello-app/deployment.yaml
 12. In the GitHub UI, update the environment variable AWS_ACCOUNT_ID to your AWS account.  (Settings -> Secrets & Variables -> Actions -> Variables)
 13. Should be good to push code to github now and run ci/cd jobs
 
@@ -81,4 +81,4 @@
 ## TODO
 - Remove kubectl secret so that argocd doesnt think repo is private
 - fix build and deploy app action so that it has a manual trigger
-- argocd cant pull ecr image
+- argocd cant pull ecr image (why didnt kustomize render the acct number?)
