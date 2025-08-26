@@ -111,7 +111,8 @@
   
 
 ## Notes
-- Deploy job needs to be run twice (need to fix this somehow)
+- Deploy job needs to be run twice sometimes? (need to fix this somehow)
+- Create-OIDC script doesnt attach policy sometimes...
 
 ## TODO
-- argocd cant pull ecr image (why didnt kustomize render the acct number?)
+- argocd cant pull ecr image if kustomize doesnt render correct (why didnt kustomize render the acct number?)
