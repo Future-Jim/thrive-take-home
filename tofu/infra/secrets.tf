@@ -17,7 +17,7 @@ resource "kubernetes_secret" "argocd_repo" {
 }
 
 data "aws_secretsmanager_secret_version" "argocd_repo" {
-  secret_id = "argocd/gitops-repo" 
+  secret_id = "argocd/gitops-repo-secret" 
 }
 
 locals {

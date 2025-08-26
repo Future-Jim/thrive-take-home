@@ -46,7 +46,7 @@
 
 ## Deploying Infrastructure and Add-Ons
 1. Push all files changed in the above steps
-2. Manually trigger github action "Deploy Infra and Add-Ons". This might need to be run twice :(
+2. In the Github Actions UI, Manually trigger github action "Deploy Infra and Add-Ons". This might need to be run twice :( (TBD)
   - Upon successful completion, you should be able to login to argocd via the steps outlined below in "To access ArgoCD UI"
 
 ## Deploying Simple Web App (hello-app)
