@@ -1,1 +1,2 @@
-aws_account_id = "471112967827"
+aws_account_id = "211125439598"
+region        = "us-east-1"

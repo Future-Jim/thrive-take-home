@@ -7,7 +7,7 @@ variable "aws_account_id" {
 variable "s3_bucket" {
   type        = string
   description = "S3 bucket for Terraform state"
-  default     = "tf-backend-19561"
+  default     = null
 }
 
 variable "s3_key" {

@@ -30,13 +30,14 @@
 ## Run bootstrap scripts
 1. Authenticate to AWS Account via CLI via your preferred method.
 2. Update <ACCOUNT_NUMBER> on line 7 of bootstrap-stuff/trust-policy.json
-3. Run create-oidc-role.sh. 
-4. Run enable-oidc.sh
-5. Run create-gh-pat-secret.sh 
+3. Run bootstrap/create-oidc-role.sh 
+   - sometimes this can be picky and not assign the policy to the GitHubActionsTofuRole. It is worth double checking that the Role has the policy attached to it. Otherwise the pipelines will fail
+4. Run bootstrap/enable-oidc.sh
+5. Run bootstrap/create-gh-pat-secret.sh 
    - We are creating a simple secret that contains the gitops URL. This is not truly necessary but we are doing it for demonstration purposes of how to bootstrap secrets.
     ~~- __Prior__ to running this, obtain a GH PAT token for __this__ repo (see here: https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)~~
     
-6. Run create-s3-backend.sh and take note of the __s3 bucket__ in the output
+6. Run bootstrap/create-s3-backend.sh and take note of the __s3 bucket__ in the output
 7. Update the provider config in /tofu/infra/providers.tf for the terraform backend with the S3 bucket name (key is harcoded)
 8. Update the provider config in /tofu/add-on/providers.tf for the terraform backend with the S3 bucket name (key is harcoded)
 9.  Update AWS Account ID tofu/infra/config/dev.tfvars variables
@@ -79,6 +80,7 @@
 - ArgoCD and Grafana are not accessible via ingress. We could make them accessible over ingress too. 
 - We could automate the manual update of hardcoded variables in the steps above (its error prone and annoying)
 - The gh-pat secret was originally necessary because the repo was private. I made the repo public but kept part of the secret for the sake of demonstrating how to use secrets.
+- Create backend configs for providers instead of manually updating them
 - Due a busy schedule, I didn't have time to prepare the alerts via email/slack
   
 
