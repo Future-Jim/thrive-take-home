@@ -19,7 +19,7 @@
 ## Prerequisites
 1. Access to an AWS Account and the corresponding <ACCOUNT_NUMBER>
 2. Access to *this* repo 
-3. A Github Personal Access Token (PAT) for *this* repo
+3. ~~A Github Personal Access Token (PAT) for *this* repo~~
 
 ## Overview
 ![Alt text](./images/architecture_diagram.png)
@@ -28,17 +28,18 @@
 1. Clone Repo
   
 ## Run bootstrap scripts
-1. Authenticate to AWS Account via CLI
+1. Authenticate to AWS Account via CLI via your preferred method.
 2. Update <ACCOUNT_NUMBER> on line 7 of bootstrap-stuff/trust-policy.json
 3. Run create-oidc-role.sh. 
 4. Run enable-oidc.sh
-5. Run create-gh-pat-secret.sh
-    - __Prior__ to running this, obtain a GH PAT token for __this__ repo (see here: https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)
-    - This is necessary since our "gitops" repo is private and requires authentication. (ahem secrets manager ;-) )
+5. Run create-gh-pat-secret.sh 
+   - We are creating a simple secret that contains the gitops URL. This is not truly necessary but we are doing it for demonstration purposes of how to bootstrap secrets.
+    ~~- __Prior__ to running this, obtain a GH PAT token for __this__ repo (see here: https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)~~
+    
 6. Run create-s3-backend.sh and take note of the __s3 bucket__ in the output
 7. Update the provider config in /tofu/infra/providers.tf for the terraform backend with the S3 bucket name (key is harcoded)
 8. Update the provider config in /tofu/add-on/providers.tf for the terraform backend with the S3 bucket name (key is harcoded)
-9. Update AWS Account ID tofu/infra/config/dev.tfvars variables
+9.  Update AWS Account ID tofu/infra/config/dev.tfvars variables
 10. Update AWS Account ID tofu/add-on/config/dev.tfvars variables
 11. Update account number in apps/hello-app/kustomization.yaml and in /apps/hello-app/deployment.yaml (not sure why kustomize isnt rendering correctly, need to fix)
 12. In the GitHub UI, update the environment variable AWS_ACCOUNT_ID to your AWS account.  (Settings -> Secrets & Variables -> Actions -> Variables)
