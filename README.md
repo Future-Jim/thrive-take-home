@@ -2,18 +2,17 @@
 
 ## Run bootstrap scripts
 1. Authenticate to AWS Account via CLI
-2. Update <ACCOUNT_NUMBER> on line 7 of trust-policy.json
+2. Update <ACCOUNT_NUMBER> on line 7 of bootstrap-stuff/trust-policy.json
 3. Run create-oidc-role.sh. 
 4. Run enable-oidc.sh
-5. Run create-s3-backend.sh and take note of the s3 bucket and key in the output
-6. Update infra/tofu/config/dev.tfvars variables as follows
-   1. s3_bucket and s3_key from step 1.4
-   2. Update the provider config for the terraform backend with the S3 bucket name and S3 key name 
-   3. Update account number in bootstrap-stuff/trust-policy.json
-   4. Update account number in apps/hello-app/kustomization.yaml
-7. In the GitHub repo, update the environment variable AWS_ACCOUNT_ID to your AWS account. 
-
-8.  Should be good to push code to github now and run ci/cd jobs
+5. Run create-s3-backend.sh and take note of the *s3 bucket* in the output
+6. Update tofu/infra/config/dev.tfvars variables
+6. Update tofu/add-on/config/dev.tfvars variables
+8. Update the providera config in /tofu/infra/providers.tf for the terraform backend with the S3 bucket name 
+8. Update the providera config in /tofu/add-on/providers.tf for the terraform backend with the S3 bucket name 
+9. Update account number in apps/hello-app/kustomization.yaml
+10. In the GitHub repo, update the environment variable AWS_ACCOUNT_ID to your AWS account. 
+11. Should be good to push code to github now and run ci/cd jobs
 
 
 Notes:
