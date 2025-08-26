@@ -1,6 +1,7 @@
 # thrive-take-home
 
 # Table of Contents
+
 - [thrive-take-home](#thrive-take-home)
 - [Table of Contents](#table-of-contents)
   - [Prerequisites](#prerequisites)
