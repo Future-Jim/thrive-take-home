@@ -50,7 +50,7 @@ variable "github_owner" {
 
 variable "github_repo" {
   type        = string
-  description = "Repo name"
+  description = "Repository name"
   default     = "thrive-take-home"
 }
 
