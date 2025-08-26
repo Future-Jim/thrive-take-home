@@ -1,6 +1,6 @@
 # thrive-take-home
 
-![Alt text](./images/diagram.png)
+![Alt text](./images/architecture_diagram.png)
 
 ## Run bootstrap scripts
 1. Authenticate to AWS Account via CLI
