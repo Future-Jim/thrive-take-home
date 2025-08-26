@@ -65,7 +65,8 @@
 
 ## Deploying Infrastructure and Add-Ons
 1. Push all files changed in the above steps
-2. In the Github Actions UI, Manually trigger github action "Deploy Infra and Add-Ons". Actions -> Deploy Infra and Add-Ons -> Run Workflow
+2. Ensure no other instances of this job are running (i.e. the plan)
+3. In the Github Actions UI, Manually trigger github action "Deploy Infra and Add-Ons". Actions -> Deploy Infra and Add-Ons -> Run Workflow for dev
    - This might need to be run twice :( (TBD)
   - Upon successful completion, you should be able to login to argocd via the steps outlined below in "To access ArgoCD UI"
 
@@ -82,7 +83,7 @@
 2. Port forward argocd service
    - kubectl port-forward service/argocd-server -n argocd 8080:443 
 3. Visit localhost:8080.
-4. The hello-app might be pending because it hasn't updated with the newly pushed hello-app container. Sync/Restart the pod if necessary
+4. The hello-app might be pending because it hasn't updated with the newly pushed hello-app container. Sync/Restart the pod if necessary after running "Build and Deploy Simply Web App"
 
 ## View hello-app
 1. There is no Route53 record setup. Simply grab the ALB DNS A record and hit the root 
@@ -107,7 +108,7 @@
 - The gh-pat secret was originally necessary because the repo was private. I made the repo public but kept part of the secret for the sake of demonstrating how to use secrets.
 - Create backend configs for providers instead of manually updating them
 - This was all done on main branch. Would not recommend doing that if this was a collaborate project :)
-- Due a busy schedule, I didn't have time to prepare the alerts via email/slack
+- Due to time constraints/busy schedule, I didn't have time to prepare the alerts via email/slack
   
 
 ## Notes
