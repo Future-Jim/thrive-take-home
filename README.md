@@ -9,6 +9,8 @@
 ![Alt text](./images/architecture_diagram.png)
 
 ## Getting started
+1. Clone Repo
+  
 ## Run bootstrap scripts
 1. Authenticate to AWS Account via CLI
 2. Update <ACCOUNT_NUMBER> on line 7 of bootstrap-stuff/trust-policy.json
@@ -18,13 +20,13 @@
 6. Run create-gh-pat-secret.sh
     - __Prior__ to running this, obtain a GH PAT token for __this__ repo (see here: https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)
     - This is necessary since our "gitops" repo is private and requires authentication. (ahem secrets manager ;-) )
-6. Update tofu/infra/config/dev.tfvars variables
-6. Update tofu/add-on/config/dev.tfvars variables
-8. Update the provider config in /tofu/infra/providers.tf for the terraform backend with the S3 bucket name 
-8. Update the provider config in /tofu/add-on/providers.tf for the terraform backend with the S3 bucket name (key is harcoded)
-9. Update account number in apps/hello-app/kustomization.yaml
-10. In the GitHub repo, update the environment variable AWS_ACCOUNT_ID to your AWS account. 
-11. Should be good to push code to github now and run ci/cd jobs
+7. Update tofu/infra/config/dev.tfvars variables
+8. Update tofu/add-on/config/dev.tfvars variables
+9. Update the provider config in /tofu/infra/providers.tf for the terraform backend with the S3 bucket name 
+10. Update the provider config in /tofu/add-on/providers.tf for the terraform backend with the S3 bucket name (key is harcoded)
+11. Update account number in apps/hello-app/kustomization.yaml
+12. In the GitHub repo, update the environment variable AWS_ACCOUNT_ID to your AWS account. 
+13. Should be good to push code to github now and run ci/cd jobs
 
 
 Notes:
