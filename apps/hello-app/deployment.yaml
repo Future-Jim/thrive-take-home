@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: hello-app
-        image: "767398127572.dkr.ecr.us-east-1.amazonaws.com/app:latest" 
+        image: "533267391963.dkr.ecr.us-east-1.amazonaws.com/app:latest" 
         ports:
         - containerPort: 8080

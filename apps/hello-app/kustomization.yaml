@@ -7,7 +7,7 @@ kind: Kustomization
 images:
 - name: /
   newName: /
-  newTag: 8a69e554c0eb284f4e674638a62d89c3378084c8
-- name: 767398127572.dkr.ecr.us-east-1.amazonaws.com/app
-  newName: 767398127572.dkr.ecr.us-east-1.amazonaws.com/app
+  newTag: c02351d9fbf70bde9383ab6696d00a2ad5fbf10b
+- name: 533267391963.dkr.ecr.us-east-1.amazonaws.com/app
+  newName: 533267391963.dkr.ecr.us-east-1.amazonaws.com/app
   newTag: latest

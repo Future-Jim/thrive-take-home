@@ -8,7 +8,7 @@ terraform {
   }
 
   backend "s3" {
-    bucket       = "tf-backend-6911"
+    bucket       = "tf-backend-31645"
     key          = "thrive/infra/terraform.tfstate"
     region       = "us-east-1"
     encrypt      = true
