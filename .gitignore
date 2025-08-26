@@ -26,3 +26,7 @@ override.tf.json
 terraform.rc
 tofu.rc
 .opentofu.rc
+
+*.drawio
+*.bkp
+*.dtmp
