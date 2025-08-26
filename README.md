@@ -4,6 +4,7 @@
 
 - [thrive-take-home](#thrive-take-home)
 - [Table of Contents](#table-of-contents)
+  - [Basic Idea](#basic-idea)
   - [Prerequisites](#prerequisites)
   - [Overview](#overview)
   - [Getting started](#getting-started)
@@ -11,10 +12,26 @@
   - [Deploying Infrastructure and Add-Ons](#deploying-infrastructure-and-add-ons)
   - [Deploying Simple Web App (hello-app)](#deploying-simple-web-app-hello-app)
   - [To access ArgoCD UI](#to-access-argocd-ui)
+  - [View hello-app](#view-hello-app)
   - [To access Grafana UI](#to-access-grafana-ui)
   - [Tradeoffs](#tradeoffs)
   - [Notes](#notes)
   - [TODO](#todo)
+
+## Basic Idea
+- We have a fully automated GitOps deployment. This includes EKS, ArgoCD, Prometheus/Grafana, Github Actions and a Dockerized Web App.
+- There are four main components to this project
+  1. Bootstrap scripts to get the project started: __bootstrap-stuff/__
+  2. The Core AWS Infrastructure: __tofu/infra/__
+  3. The Additional AWS Infrastructure: __tofu/add-on/__
+  4. The Web App code: __src/__
+  5. The GitOps directory: __apps/__
+
+- The GitHub Actions pipelines consist of two main workflows
+  1. Deploy Infra and Add-Ons
+      - This deploys the Core AWS Infrastructure and the Additional Add ons
+  2. Build and Deploy Simple Web App
+      - This containerizes a simple Golang web app, pushes it to ECR then templates a new argocd application
 
 ## Prerequisites
 1. Access to an AWS Account and the corresponding <ACCOUNT_NUMBER>
@@ -48,21 +65,29 @@
 
 ## Deploying Infrastructure and Add-Ons
 1. Push all files changed in the above steps
-2. In the Github Actions UI, Manually trigger github action "Deploy Infra and Add-Ons". This might need to be run twice :( (TBD)
+2. In the Github Actions UI, Manually trigger github action "Deploy Infra and Add-Ons". Actions -> Deploy Infra and Add-Ons -> Run Workflow
+   - This might need to be run twice :( (TBD)
   - Upon successful completion, you should be able to login to argocd via the steps outlined below in "To access ArgoCD UI"
 
 ## Deploying Simple Web App (hello-app)
-1. Run github action Build and Deploy Simple Web App (make a push in src/)
+1. Run github action Build and Deploy Simple Web App
+   - In the Github Actions UI, Manually trigger github action "Build and Deploy Simple Web App". Actions -> Build and Deploy Simple Web App -> Run Workflow
 2. This action pushes a rendered argoCD/k8s manifest to the apps/hello-app/
 
 ## To access ArgoCD UI
 0. Connect to EKS Cluster: 
    - aws eks update-kubeconfig   --region us-east-1   --name thrive-eks
 1. Obtain default admin password argocd password(user is admin)
-2. kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
-3. Port forward argocd service
+   - kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+2. Port forward argocd service
    - kubectl port-forward service/argocd-server -n argocd 8080:443 
-4. Visit localhost:8080.
+3. Visit localhost:8080.
+4. The hello-app might be pending because it hasn't updated with the newly pushed hello-app container. Sync/Restart the pod if necessary
+
+## View hello-app
+1. There is no Route53 record setup. Simply grab the ALB DNS A record and hit the root 
+   - i.e. k8s-sharedalb-880648ba91-463864373.us-east-1.elb.amazonaws.com/
+   - Ideally, we should have more sophisticated listeners and ingress setups.
 
 ## To access Grafana UI
 0. Connect to EKS Cluster: 
@@ -81,6 +106,7 @@
 - We could automate the manual update of hardcoded variables in the steps above (its error prone and annoying)
 - The gh-pat secret was originally necessary because the repo was private. I made the repo public but kept part of the secret for the sake of demonstrating how to use secrets.
 - Create backend configs for providers instead of manually updating them
+- This was all done on main branch. Would not recommend doing that if this was a collaborate project :)
 - Due a busy schedule, I didn't have time to prepare the alerts via email/slack
   
 
