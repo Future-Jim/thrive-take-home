@@ -54,13 +54,17 @@
 2. This action pushes a rendered argoCD/k8s manifest to the apps/hello-app/
 
 ## To access ArgoCD UI
-1. Obtain default admin password (user is admin)
+0. Connect to EKS Cluster: 
+   - aws eks update-kubeconfig   --region us-east-1   --name thrive-eks
+1. Obtain default admin password argocd password(user is admin)
 2. kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
 3. Port forward argocd service
    - kubectl port-forward service/argocd-server -n argocd 8080:443 
-5. Visit localhost:8080.
+4. Visit localhost:8080.
 
 ## To access Grafana UI
+0. Connect to EKS Cluster: 
+   - aws eks update-kubeconfig   --region us-east-1   --name thrive-eks
 1. Default user and password are both "admin"
 2. Port forward grafana
     - kubectl port-forward -n monitoring svc/kube-prometheus-stack-prometheus 9090:9090
@@ -73,7 +77,9 @@
 - Ingress is only working for the web app. We would need additional configurations to make other apps work with this ingress.
 - ArgoCD and Grafana are not accessible via ingress. We could make them accessible over ingress too. 
 - We could automate the manual update of hardcoded variables in the steps above (its error prone and annoying)
+- The gh-pat secret was originally necessary because the repo was private. I made the repo public but kept part of the secret for the sake of demonstrating how to use secrets.
 - Due a busy schedule, I didn't have time to prepare the alerts via email/slack
+  
 
 ## Notes
 - Deploy job needs to be run twice (need to fix this somehow)
