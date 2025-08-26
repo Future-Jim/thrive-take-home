@@ -28,6 +28,15 @@
 12. In the GitHub repo, update the environment variable AWS_ACCOUNT_ID to your AWS account. 
 13. Should be good to push code to github now and run ci/cd jobs
 
+## Deploying Infrastructure and Add-Ons
+1. Push all files changed in the above steps
+2. Run github action "Deploy Infra and Add-Ons". This might need to be run twice :(
+  - Upon successful completion, you should be able to login to argocd via the steps outlined below in "To access ArgoCD UI"
+
+## Deploying Simple Web App (hello-app)
+1. Run github action Build and Deploy Simple Web App
+2. This action pushes a rendered argoCD/k8s manifest to the apps/hello-app/
+
 
 Notes:
 - Deploy job needs to be run twice (need to fix this somehow)
