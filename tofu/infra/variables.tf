@@ -18,7 +18,7 @@ variable "s3_bucket" {
 
 variable "s3_key" {
   type        = string
-  description = "S3 key for Terraform state"
+  description = "S3 key for Terraform state file"
   default     = "thrive/terrafrom.tfstate"
 }
 
