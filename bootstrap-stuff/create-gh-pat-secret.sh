@@ -5,5 +5,5 @@ aws secretsmanager create-secret \
     "type": "git",
     "url": "https://github.com/Future-Jim/thrive-take-home.git",
     "username": "oauth2",
-    "password": "REPLACE_WITH_GITHUB_PAT"
+    "password": "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"
   }'

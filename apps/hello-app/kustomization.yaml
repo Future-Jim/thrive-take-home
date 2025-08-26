@@ -5,6 +5,6 @@ resources:
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 images:
-- name: 654654407983.dkr.ecr.us-east-1.amazonaws.com/app
-  newName: 654654407983.dkr.ecr.us-east-1.amazonaws.com/app
+- name: 637423571897.dkr.ecr.us-east-1.amazonaws.com/app
+  newName: 637423571897.dkr.ecr.us-east-1.amazonaws.com/app
   newTag: latest

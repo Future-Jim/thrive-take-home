@@ -10,11 +10,19 @@ resource "kubernetes_secret" "argocd_repo" {
   type = "Opaque"
 
   data = {
-    type     = "git"
-    url      = "https://github.com/Future-Jim/thrive-take-home.git"
-    username = "oauth2"
-    password =  "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"
+    type     = local.argocd_repo_secret["type"]
+    url      = local.argocd_repo_secret["url"]
+    username = local.argocd_repo_secret["username"]
+    password = local.argocd_repo_secret["password"]
   }
 
   depends_on = [helm_release.argocd]
+}
+
+data "aws_secretsmanager_secret_version" "argocd_repo" {
+  secret_id = "argocd/gitops-repo" 
+}
+
+locals {
+  argocd_repo_secret = jsondecode(data.aws_secretsmanager_secret_version.argocd_repo.secret_string)
 }
