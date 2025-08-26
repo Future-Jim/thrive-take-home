@@ -64,6 +64,7 @@
 2. Port forward grafana
     - kubectl port-forward -n monitoring svc/kube-prometheus-stack-prometheus 9090:9090
 3. Visit localhost:9090
+4. All baseline metrics from kube-prometheus-stack are present (i.e. Node CPU, Memory etc)
 
 
 ## Tradeoffs
