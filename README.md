@@ -1,5 +1,19 @@
 # thrive-take-home
 
+# Table of Contents
+- [thrive-take-home](#thrive-take-home)
+- [Table of Contents](#table-of-contents)
+  - [Prerequisites](#prerequisites)
+  - [Overview](#overview)
+  - [Getting started](#getting-started)
+  - [Run bootstrap scripts](#run-bootstrap-scripts)
+  - [Deploying Infrastructure and Add-Ons](#deploying-infrastructure-and-add-ons)
+  - [Deploying Simple Web App (hello-app)](#deploying-simple-web-app-hello-app)
+  - [To access ArgoCD UI](#to-access-argocd-ui)
+  - [To access Grafana UI](#to-access-grafana-ui)
+  - [Tradeoffs](#tradeoffs)
+  - [Notes](#notes)
+
 ## Prerequisites
 1. Access to AWS and with the corresponding <ACCOUNT_NUMBER>
 2. Access to *this* repo
@@ -37,26 +51,24 @@
 1. Run github action Build and Deploy Simple Web App
 2. This action pushes a rendered argoCD/k8s manifest to the apps/hello-app/
 
-
-Notes:
-- Deploy job needs to be run twice (need to fix this somehow)
-
-##### To access ArgoCD UI
+## To access ArgoCD UI
 1. Obtain default admin password (user is admin)
 2. kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
 3. Port forward argocd service
    - kubectl port-forward service/argocd-server -n argocd 8080:443 
 5. Visit localhost:8080.
 
-##### To access Grafana UI
+## To access Grafana UI
 1. Default user and password are both "admin"
 2. Port forward grafana
     - kubectl port-forward -n monitoring svc/kube-prometheus-stack-prometheus 9090:9090
 3. Visit localhost:9090
 
 
-##### Tradeoffs
+## Tradeoffs
 - Ingress is only working for the web app. We would need additional configurations to make other apps work with this ingress.
 - ArgoCD and Grafana are not accessible via ingress. We could make them accessible over ingress too. 
 - We could automate the manual update of hardcoded variables in the steps above (its error prone and annoying)
-- 
+
+## Notes
+- Deploy job needs to be run twice (need to fix this somehow)
