@@ -68,9 +68,11 @@
 
 
 ## Tradeoffs
+- The role associated with OIDC and Github Actions is extremely permissive. This should be locked down and not wide open.
 - Ingress is only working for the web app. We would need additional configurations to make other apps work with this ingress.
 - ArgoCD and Grafana are not accessible via ingress. We could make them accessible over ingress too. 
 - We could automate the manual update of hardcoded variables in the steps above (its error prone and annoying)
+- Due a busy schedule, I didn't have time to prepare the alerts via email/slack
 
 ## Notes
 - Deploy job needs to be run twice (need to fix this somehow)
