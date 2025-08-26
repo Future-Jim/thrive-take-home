@@ -17,8 +17,8 @@
   - [TODO](#todo)
 
 ## Prerequisites
-1. Access to AWS and with the corresponding <ACCOUNT_NUMBER>
-2. Access to *this* repo
+1. Access to an AWS Account and the corresponding <ACCOUNT_NUMBER>
+2. Access to *this* repo 
 3. A Github Personal Access Token (PAT) for *this* repo
 
 ## Overview
@@ -36,7 +36,7 @@
     - __Prior__ to running this, obtain a GH PAT token for __this__ repo (see here: https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)
     - This is necessary since our "gitops" repo is private and requires authentication. (ahem secrets manager ;-) )
 6. Run create-s3-backend.sh and take note of the __s3 bucket__ in the output
-7. Update the provider config in /tofu/infra/providers.tf for the terraform backend with the S3 bucket name 
+7. Update the provider config in /tofu/infra/providers.tf for the terraform backend with the S3 bucket name (key is harcoded)
 8. Update the provider config in /tofu/add-on/providers.tf for the terraform backend with the S3 bucket name (key is harcoded)
 9. Update AWS Account ID tofu/infra/config/dev.tfvars variables
 10. Update AWS Account ID tofu/add-on/config/dev.tfvars variables
