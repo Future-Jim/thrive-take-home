@@ -1,5 +1,7 @@
 # thrive-take-home
 
+![Alt text](./images/diagram.png)
+
 ## Run bootstrap scripts
 1. Authenticate to AWS Account via CLI
 2. Update <ACCOUNT_NUMBER> on line 7 of bootstrap-stuff/trust-policy.json
@@ -7,7 +9,7 @@
 4. Run enable-oidc.sh
 5. Run create-s3-backend.sh and take note of the __s3 bucket__ in the output
 6. Run create-gh-pat-secret.sh
-    - __Prior__ to running this, obtain a GH PAT token for this repo (see here: https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)
+    - __Prior__ to running this, obtain a GH PAT token for __this__ repo (see here: https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)
     - This is necessary since our "gitops" repo is private and requires authentication. (ahem secrets manager ;-) )
 6. Update tofu/infra/config/dev.tfvars variables
 6. Update tofu/add-on/config/dev.tfvars variables

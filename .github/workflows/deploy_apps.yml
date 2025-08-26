@@ -1,11 +1,11 @@
-name: Build and Deploy App
+name: Build and Deploy Simple Web App
 
 on:
   push:
     branches: [ "main" ]
     paths:
-      - 'src_apps/**'
-      - '.github/workflows/app_deploy.yml'
+      - 'src/**'
+      - '.github/workflows/deploy_apps.yml'
 
 jobs:
   build:
