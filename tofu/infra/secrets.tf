@@ -10,10 +10,7 @@ resource "kubernetes_secret" "argocd_repo" {
   type = "Opaque"
 
   data = {
-    type     = local.argocd_repo_secret["type"]
     url      = local.argocd_repo_secret["url"]
-    username = local.argocd_repo_secret["username"]
-    password = local.argocd_repo_secret["password"]
   }
 
   depends_on = [helm_release.argocd]
