@@ -67,9 +67,9 @@
    - aws eks update-kubeconfig   --region us-east-1   --name thrive-eks
 1. Default user and password are both "admin"
 2. Port forward grafana
-    - kubectl port-forward -n monitoring svc/kube-prometheus-stack-prometheus 9090:9090
-3. Visit localhost:9090
-4. All baseline metrics from kube-prometheus-stack are present (i.e. Node CPU, Memory etc)
+    - kubectl port-forward -n monitoring svc/kube-prometheus-stack-grafana 3000:80
+3. Visit localhost:3000
+4. All baseline metrics from kube-prometheus-stack are being pushed to Grafana via prometheus (i.e. Node CPU, Memory, Reqs/Sec etc)
 
 
 ## Tradeoffs
@@ -85,6 +85,4 @@
 - Deploy job needs to be run twice (need to fix this somehow)
 
 ## TODO
-- Remove kubectl secret so that argocd doesnt think repo is private
-- fix build and deploy app action so that it has a manual trigger
 - argocd cant pull ecr image (why didnt kustomize render the acct number?)
