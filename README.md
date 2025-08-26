@@ -2,6 +2,12 @@
 
 ![Alt text](./images/architecture_diagram.png)
 
+## Prerequisites
+1. Access to AWS and have an <ACCOUNT_NUMBER>
+2. Access to *this* repo
+3. A Github Personal Access Token (PAT) for *this* repo
+
+
 ## Run bootstrap scripts
 1. Authenticate to AWS Account via CLI
 2. Update <ACCOUNT_NUMBER> on line 7 of bootstrap-stuff/trust-policy.json
