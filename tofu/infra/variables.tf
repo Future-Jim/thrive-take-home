@@ -89,3 +89,23 @@ variable "git_repo_url" {
   type    = string
   default = null
 }
+
+variable "cidr" {
+  description = "VPC CIDR block"
+  type        = string
+}
+
+variable "azs" {
+  description = "List of availability zones"
+  type        = list(string)
+}
+
+variable "private_subnets" {
+  description = "Private subnet CIDR blocks"
+  type        = list(string)
+}
+
+variable "public_subnets" {
+  description = "Public subnet CIDR blocks"
+  type        = list(string)
+}

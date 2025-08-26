@@ -8,6 +8,6 @@ images:
 - name: /
   newName: /
   newTag: c02351d9fbf70bde9383ab6696d00a2ad5fbf10b
-- name: 975050030597.dkr.ecr.us-east-1.amazonaws.com/app
-  newName: 975050030597.dkr.ecr.us-east-1.amazonaws.com/app
+- name: 767398127572.dkr.ecr.us-east-1.amazonaws.com/app
+  newName: 767398127572.dkr.ecr.us-east-1.amazonaws.com/app
   newTag: latest
