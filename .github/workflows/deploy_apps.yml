@@ -6,6 +6,7 @@ on:
     paths:
       - 'src/**'
       - '.github/workflows/deploy_apps.yml'
+  workflow_dispatch:
 
 jobs:
   build:
