@@ -14,6 +14,7 @@
   - [To access Grafana UI](#to-access-grafana-ui)
   - [Tradeoffs](#tradeoffs)
   - [Notes](#notes)
+  - [TODO](#todo)
 
 ## Prerequisites
 1. Access to AWS and with the corresponding <ACCOUNT_NUMBER>
@@ -76,3 +77,7 @@
 
 ## Notes
 - Deploy job needs to be run twice (need to fix this somehow)
+
+## TODO
+- Remove kubectl secret so that argocd doesnt think repo is private
+- fix build and deploy app action so that it has a manual trigger
