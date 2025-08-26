@@ -34,7 +34,7 @@ func (w *statusResponseWriter) WriteHeader(code int) {
 func handler(w http.ResponseWriter, r *http.Request) {
     srw := &statusResponseWriter{ResponseWriter: w, status: 200}
 
-    fmt.Fprintf(srw, "Hello Thrive People!! This is running in EKS via an artifact in ECR!\n")
+    fmt.Fprintf(srw, "Hello Thrive People!!! This is running in EKS via an artifact in ECR!\n")
 
     httpRequests.WithLabelValues(r.Method, r.URL.Path, strconv.Itoa(srw.status)).Inc()
 }

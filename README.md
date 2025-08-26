@@ -45,11 +45,11 @@
 
 ## Deploying Infrastructure and Add-Ons
 1. Push all files changed in the above steps
-2. Run github action "Deploy Infra and Add-Ons". This might need to be run twice :(
+2. Manually trigger github action "Deploy Infra and Add-Ons". This might need to be run twice :(
   - Upon successful completion, you should be able to login to argocd via the steps outlined below in "To access ArgoCD UI"
 
 ## Deploying Simple Web App (hello-app)
-1. Run github action Build and Deploy Simple Web App
+1. Run github action Build and Deploy Simple Web App (make a push in src/)
 2. This action pushes a rendered argoCD/k8s manifest to the apps/hello-app/
 
 ## To access ArgoCD UI
